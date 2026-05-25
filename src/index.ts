@@ -9,7 +9,7 @@ const PORT = 8000;
 app.listen(PORT, () => console.log(`Server listening at port ${PORT}`));
 
 app.get('/', (req, res) => {
-    res.send('Create a new Task');
+    res.send('Create new task');
 });
 
 app.use('/task', tasksRouter);
