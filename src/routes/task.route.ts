@@ -1,14 +1,22 @@
 import express from 'express';
+
+// Importing all DTOs
 import { CreateTaskDto, UpdateTaskDto, DeleteTaskDto } from '../dto/task.dto';
+
+// Importing the Task shape interface
 import Task from '../models/task.model';
 
+// Imports the router to signify that this is a route
 const router = express.Router();
+
+// Specifies the type of array that the "tasks" is made in
 let tasks: Task[] = [];
 
 router.get('/', (req, res) => {
     res.status(200).send(tasks);
 });
 
+// The post route for creating a task
 router.post('/', (req, res) => {
     const { title } = req.body as CreateTaskDto;
     const newTask = new Task(title);
@@ -16,6 +24,7 @@ router.post('/', (req, res) => {
     res.status(201).send(newTask);
 });
 
+// The patch route for updating a task
 router.patch('/', (req, res) => {
     const { id, title, isCompleted } = req.body as UpdateTaskDto;
     const task = tasks.find(task => task.id === id);
@@ -30,6 +39,7 @@ router.patch('/', (req, res) => {
     }
 });
 
+// The delete route for deleting a task
 router.delete('/', (req, res) => {
     const { id } = req.body as DeleteTaskDto;
 
@@ -42,4 +52,5 @@ router.delete('/', (req, res) => {
     res.status(200).send('Task deleted');
 })
 
+// The default export for exporting the router
 export default router;

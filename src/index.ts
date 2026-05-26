@@ -1,4 +1,5 @@
 import express from 'express';
+// Imports the route for the tasks
 import tasksRouter from './routes/task.route';
 
 const app = express();
@@ -12,4 +13,5 @@ app.get('/', (req, res) => {
     res.send('Create new task');
 });
 
+// Use the task route and assigns it to "/task"
 app.use('/task', tasksRouter);

@@ -7,3 +7,5 @@ export default class Task {
         this.isCompleted = false;
     }
 };
+
+// Creates an object shape for the tasks to follow

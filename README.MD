@@ -25,15 +25,16 @@ pnpm add express
 pnpm add -D typescript @types/node @types/express tsx
 
 # {
-#   "name": "enterprise-express-api",
+#   "name": "ts-express",
 #   "version": "1.0.0",
-#   "description": "Production ready Express and TypeScript configuration manual.",
+#   "description": "",
+#   "license": "ISC",
+#   "author": "",
 #   "type": "module",
-#   "main": "dist/index.js",
+#   "main": "index.js",
 #   "scripts": {
-#     "dev": "tsx watch src/index.ts",
-#     "build": "tsc",
-#     "start": "node dist/index.js"
+#     "start": "tsc && node dist/index.js",
+#     "dev": "tsx watch src/index.ts"
 #   },
 #   "dependencies": {
 #     "express": "^5.2.1"
@@ -41,7 +42,9 @@ pnpm add -D typescript @types/node @types/express tsx
 #   "devDependencies": {
 #     "@types/express": "^5.0.6",
 #     "@types/node": "^25.9.0",
-#     "tsx": "^4.19.0",
+#     "nodemon": "^3.1.14",
+#     "ts-node": "^10.9.2",
+#     "tsx": "^4.22.3",
 #     "typescript": "^6.0.3"
 #   }
 # }
@@ -49,37 +52,65 @@ pnpm add -D typescript @types/node @types/express tsx
 pnpm tsc --init
 
 # {
+#   // Visit https://aka.ms/tsconfig to read more about this file
 #   "compilerOptions": {
-#     /* File Layout Strategy */
+#     // File Layout
 #     "rootDir": "./src",
 #     "outDir": "./dist",
 #     "noImplicitAny": true,
 
-#     /* Runtime Target and Engine Specs */
-#     "module": "NodeNext",
-#     "moduleResolution": "NodeNext",
+#     // Environment Settings
+#     // See also https://aka.ms/tsconfig/module
+#     "module": "esnext",
 #     "target": "es2022",
 #     "types": [],
+#     // For nodejs:
+#     // "lib": ["esnext"],
+#     // "types": ["node"],
+#     // and npm install -D @types/node
 
-#     /* Resource Mapping */
+#     // Other Outputs
 #     "sourceMap": true,
 #     "declaration": true,
 #     "declarationMap": true,
 
-#     /* Defensive Strict Typechecking Options */
-#     "strict": true,
+#     // Stricter Typechecking Options
 #     "noUncheckedIndexedAccess": true,
 #     "exactOptionalPropertyTypes": true,
 
-#     /* Engineering Standards */
+#     // Style Options
+#     // "noImplicitReturns": true,
+#     // "noImplicitOverride": true,
+#     // "noUnusedLocals": true,
+#     // "noUnusedParameters": true,
+#     // "noFallthroughCasesInSwitch": true,
+#     // "noPropertyAccessFromIndexSignature": true,
+
+#     // Recommended Options
+#     "strict": true,
 #     "jsx": "react-jsx",
 #     "verbatimModuleSyntax": false,
 #     "isolatedModules": true,
 #     "noUncheckedSideEffectImports": true,
 #     "moduleDetection": "force",
-#     "skipLibCheck": true
-#   },
-#   "include": ["src/**/*"]
+#     "skipLibCheck": true,
+#   }
 # }
 
 mkdir -p src/dto src/models src/routes
+
+# Add the index.ts file to start a basic express server
+
+import express from 'express';
+
+const app = express();
+app.use(express.json());
+
+# The port number for listening on the server
+const PORT = 8000;
+
+app.listen(PORT, () => console.log(`Server listening at port ${PORT}));
+
+app.get('/', (req, res) => {
+    res.send('Welcome to your new express server');
+});
